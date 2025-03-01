@@ -3,9 +3,11 @@ module.exports = defineConfig({
   transpileDependencies: true
   
 })
-module.exports = {
+module.exports = defineConfig({
+  transpileDependencies: true,
   devServer: {
-    port: 3000
-  }
-};
+    port: process.env.PORT || 3000
+  },
+  publicPath: './'
+});
 
