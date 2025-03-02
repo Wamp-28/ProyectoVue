@@ -51,6 +51,7 @@
 </template>
 
 <script>
+const BASE_URL = "https://tu-backend-production.up.railway.app";
 import axios from "axios";
 
 export default {
@@ -64,7 +65,7 @@ export default {
   methods: {
     async obtenerEstudiantes() {
       try {
-        const response = await axios.get("http://localhost:8081/api/listar");
+        const response = await axios.get(`${BASE_URL}/api/listar`);
         this.estudiantes = response.data;
       } catch (error) {
         console.error("Error al obtener estudiantes:", error);
@@ -72,8 +73,7 @@ export default {
     },
     async agregarEstudiante() {
       try {
-        const response = await axios.post("http://localhost:8081/api/guardar", this.nuevoEstudiante);
-
+        const response = await axios.post(`${BASE_URL}/api/guardar`, this.nuevoEstudiante);
         // Agregar el nuevo estudiante a la lista sin recargar
         this.estudiantes.push(response.data);
 
@@ -90,7 +90,7 @@ export default {
     async eliminarEstudiante(codigo) {
       if (confirm("¿Estás seguro de que quieres eliminar este estudiante?")) {
         try {
-          await axios.delete(`http://localhost:8081/api/eliminar/${codigo}`);
+          await axios.delete(`${BASE_URL}/api/eliminar/${codigo}`);
 
           // Filtrar la lista para eliminar el estudiante sin recargar
           this.estudiantes = this.estudiantes.filter(e => e.codigo !== codigo);
